@@ -70,4 +70,7 @@ Rails.application.configure do
 
   # GitPod uses 4 levels domain
   config.hosts << /.*\.gitpod\.io/
+
+  # Mailer configuration
+  config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
 end

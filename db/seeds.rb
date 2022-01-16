@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+if User.with_deleted.count.zero?
+  User.create_with(full_name: 'Alice', password: 'alicepassword').find_or_create_by!(email: 'alice@example.com')
+  User.create_with(full_name: 'Bob', password: 'bobpassword').find_or_create_by!(email: 'bob@example.com')
+  User.create_with(full_name: 'Carl', password: 'carlpassword').find_or_create_by!(email: 'carl@example.com')
+end
