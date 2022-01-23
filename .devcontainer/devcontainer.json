@@ -40,6 +40,7 @@
 		"ms-azuretools.vscode-docker",
 		"dbaeumer.vscode-eslint",
 		"rebornix.Ruby",
+		"castwide.solargraph",
 		"aliariff.vscode-erb-beautify",
 		"mtxr.sqltools",
 		"mtxr.sqltools-driver-pg",
