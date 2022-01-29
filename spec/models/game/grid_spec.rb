@@ -113,7 +113,7 @@ RSpec.describe Game::Grid do
         ***.
         ....
       GRID
-      gen4 = <<~GRID.chomp
+      gen5 = <<~GRID.chomp
         ....
         ..*.
         ...*
@@ -122,9 +122,11 @@ RSpec.describe Game::Grid do
 
       first_generation = 11
       grid1 = Game::Grid.new(generation: first_generation, height: 4, width: 4, body: gen1)
-      grid4 = grid1.goto(first_generation + 3)
-      expect(grid4).to be_a Game::Grid
-      expect(grid4.to_s).to eq gen4
+      last_generation = first_generation + 4
+      grid5 = grid1.goto(last_generation)
+      expect(grid5).to be_a Game::Grid
+      expect(grid5.generation).to eq last_generation
+      expect(grid5.to_s).to eq gen5
       expect do
         grid1.goto(first_generation)
       end.to raise_error(ArgumentError)

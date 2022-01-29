@@ -49,7 +49,7 @@ class Game
         raise ArgumentError, "generation number must be an Integer > #{generation}"
       end
 
-      (generation..num).inject(self) { |cur, _| cur.next }
+      (generation...num).inject(self) { |cur, _| cur.next }
     end
 
     protected
