@@ -1,14 +1,17 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_game, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: :show
+  before_action :set_game, only: %i[show edit update destroy]
 
   # GET /games or /games.json
   def index
-    @games = Game.all
+    @games = Game.by_user(current_user)
   end
 
   # GET /games/1 or /games/1.json
   def show
+    @grid = @game.grid
+    generation = params[:generation].to_i
+    @grid = @grid.goto(generation) if generation > @grid.generation
   end
 
   # GET /games/new
@@ -22,7 +25,13 @@ class GamesController < ApplicationController
 
   # POST /games or /games.json
   def create
-    @game = current_user.games.new(game_params)
+    grid_file = params[:game][:grid_file]
+    # TODO: check grid_file errors
+    grid = Game::Utils.grid_from_file(grid_file.path)
+    @game = Game::Utils.game_from_grid(grid)
+    @game.user = current_user
+    @game.name = params[:game][:name]
+    @game.description = params[:game][:description]
 
     respond_to do |format|
       if @game.save
@@ -59,13 +68,15 @@ class GamesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_game
-      @game = Game.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def game_params
-      params.require(:game).permit(:name, :description, :height, :width, :content, :public)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_game
+    games = current_user ? Game.by_user(current_user) : Game.only_public
+    @game = games.find_by!(code: params[:code])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def game_params
+    params.require(:game).permit(:name, :description, :public)
+  end
 end

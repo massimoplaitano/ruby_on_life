@@ -17,18 +17,46 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
   </head>
-
-  <body>
-    <%- if alert %>
-      <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-        <%= alert %>
-      </div>
+  <body class="bg-gray-50">
+    <%- if show_navbar %>
+      <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start">
+              <a href="/" class="text-xl font-bold flex items-center lg:ml-2.5">
+                <span class="p-2">
+                  <%= logo_svg('h-6') %>
+                </span>
+                <span class="self-center whitespace-nowrap">Ruby on Life</span>
+              </a>
+            </div>
+            <%= link_to 'New Game', new_game_path %>
+            <%= link_to 'My Games', games_path %>
+            <%- if current_user %>
+              <%= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, data: { 'turbo-method': :delete } %>
+            <% end %>
+          </div>
+        </div>
+      </nav>
     <% end %>
-    <%- if notice %>
-      <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-        <%= notice %>
+    <div class="flex overflow-hidden bg-white<%= show_navbar && ' pt-16' %>">
+      <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto">
+        <main>
+          <div class="pt-6 px-4">
+            <%- if alert %>
+              <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <%= alert %>
+              </div>
+            <% end %>
+            <%- if notice %>
+              <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                <%= notice %>
+              </div>
+            <% end %>
+            <%= yield %>
+          </div>
+        </main>
       </div>
-    <% end %>
-    <%= yield %>
+    </div>
   </body>
 </html>

@@ -1,47 +1,50 @@
 <%= form_with(model: game) do |form| %>
-  <% if game.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
-
-      <ul>
-        <% game.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+  <div class="p-6 space-y-6">
+    <% if game.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+        <ul>
+          <% game.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="grid grid-cols-6 gap-6">
+      <%- if game.new_record? %>
+        <div class="col-span-full group">
+          <%= form.label :grid_file, class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300' %>
+          <%= form.file_field :grid_file, class: 'block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none focus:border-transparent file:text-white file:bg-cyan-600 file:hover:bg-cyan-700 file:font-medium file:rounded-lg file:px-5 file:py-2.5' %>
+          <div class="mt-1 text-sm text-gray-500 hidden group-hover:block">
+            Upload a file to create a new game, the format is like this:
+            <pre class="mx-6 my-2 p-2 bg-gray-200 rounded-lg shadow-lg">Generation 1:
+4 8
+.*......
+..*.....
+***.....
+........</pre>
+          </div>
+        </div>
         <% end %>
-      </ul>
+      <div class="col-span-full flex items-start">
+        <div class="flex items-center h-5">
+          <%= form.check_box :public, class: 'w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800' %>
+        </div>
+        <div class="ml-3 text-sm">
+          <%= form.label :public, class: 'font-medium text-gray-900 dark:text-gray-300' %>
+        </div>
+      </div>
+      <div class="col-span-6 sm:col-span-3">
+        <%= form.label :name, class: 'text-sm font-medium text-gray-900 block mb-2' %>
+        <%= form.text_field :name, class: 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5', placeholder: 'Optional name' %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :description, class: 'text-sm font-medium text-gray-900 block mb-2' %>
+        <%= form.text_area :description, class: 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4', placeholder: 'Optional description' %>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
   </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :height, style: "display: block" %>
-    <%= form.number_field :height %>
-  </div>
-
-  <div>
-    <%= form.label :width, style: "display: block" %>
-    <%= form.number_field :width %>
-  </div>
-
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div>
-    <%= form.label :public, style: "display: block" %>
-    <%= form.check_box :public %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="p-6 border-t border-gray-200 rounded-b">
+    <%= form.submit class: 'text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center' %>
   </div>
 <% end %>

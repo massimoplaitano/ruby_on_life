@@ -1,10 +1,48 @@
-<p style="color: green"><%= notice %></p>
+<script>
+  function downloadSvg (filename) {
+    var content = btoa(document.getElementById('svg-wrapper').innerHTML);
+    var link = document.createElement("a");
+    link.download = filename;
+    link.href = 'data:image/svg+xml;base64,' + content;
+    link.click();
+    delete link;
+  }
+</script>
 
-<%= render @game %>
+<%= link_to "Next Generation", game_generation_path(@game, generation: @grid.generation.succ) %> |
+<%= link_to "Edit this game", edit_game_path(@game) %> |
+<%= button_to "Destroy this game", @game, method: :delete %>
+<a onclick="downloadSvg('prova.svg')">Download image</a>
 
-<div>
-  <%= link_to "Edit this game", edit_game_path(@game) %> |
-  <%= link_to "Back to games", games_path %>
-
-  <%= button_to "Destroy this game", @game, method: :delete %>
+<div id="<%= dom_id @game %>">
+  <div id="svg-wrapper" class="flex">
+    <%= grid_to_svg(@grid, class: 'fill-cyan-600 max-w-sm border-2 rounded-lg shadow-lg') %>
+  </div>
+  <p>
+    <strong>Code:</strong>
+    <%= @game.code %>
+  <p>
+    <strong>Generation:</strong>
+    <%= @grid.generation %>
+  </p>
+  <p>
+    <strong>Height:</strong>
+    <%= @game.height %>
+  </p>
+  <p>
+    <strong>Width:</strong>
+    <%= @game.width %>
+  </p>
+  <p>
+    <strong>Public:</strong>
+    <%= @game.public %>
+  </p>
+  <p>
+    <strong>Name:</strong>
+    <%= @game.name %>
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <%= @game.description %>
+  </p>
 </div>

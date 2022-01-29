@@ -1,9 +1,10 @@
-<h1>New game</h1>
-
-<%= render "form", game: @game %>
-
-<br>
-
-<div>
-  <%= link_to "Back to games", games_path %>
+<div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+  <div class="bg-white rounded-lg shadow relative">
+    <div class="flex items-start justify-between p-5 border-b rounded-t">
+      <h3 class="text-xl font-semibold">
+        Upload a file to create a New Game
+      </h3>
+    </div>
+    <%= render "form", game: @game %>
+  </div>
 </div>
