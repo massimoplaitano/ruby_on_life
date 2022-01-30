@@ -72,5 +72,5 @@ Rails.application.configure do
   config.hosts << /.*\.gitpod\.io/
 
   # Mailer configuration
-  config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: ENV['RAILS_PORT'] || 3000 }
 end
