@@ -1,31 +1,51 @@
+# Ruby on Life project
+
+It's a testbed of various tecnologies.
+
+First of all Ruby on Rails 7 and new assets pipeline without Webpack.
+
+A natural conseguence is the use of Tailwind CSS with powerful JIT compiler that builds very small CSS assets with only used classes.
+
+I only scratched the surface of Turbo and Hotwire, but either are on TODO.
+
+Only a bit of Rspec, but a deeper testing coverage is on schedule.
+
+And why not simplify developers life? This project is configured for develop on Devcontainer or GitPod with very fast warm up.
+
+
+# Demo
+
+There is a [demo version](https://ruby-on-life.herokuapp.com/).
+
+You can find some testing users on [db/seeds.rb](db/seeds.rb), or you can sign up with a valid email.
+
+
+# Command line version
+
+Install Ruby 3 or later. There is no dependencies, so no need to use bundler.
+Execute the cli.rb script passing a file path: 
+```bash
+./cli.rb game_grid.txt
+```
+
 # Dev warm up with devcontainer
 
-Clone git repository on your system.
+Clone this Git repository on your system.
 
 Open project directory with Visual Studio Code and follow the instructions to install "Remote - Containers" extension and execute command (CTRL+SHIFT+P) "Remote-Containers: Reopen in Container".
 
 
-# README
+# Rails server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To start the server and background services to compile assets on the fly, open a terminal (Bash for examplel) and execute:
+```bash
+bin/dev
+```
 
-Things you may want to cover:
 
-* Ruby version
+# Development on GitPod
 
-* System dependencies
+Create an account on https://gitpod.io and prefix `gitpod.io/#` on this repository url:
+https://gitpod.io/#https://github.com/massimoplaitano/ruby_on_life
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Wait building image and dependency installation. Rails development server starts automatically. 
