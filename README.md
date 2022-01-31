@@ -53,6 +53,7 @@ Wait building image and dependency installation. Rails development server starts
 
 # TODO
 
+- [ ] autoplay
 - [ ] better error handling
 - [ ] more method comments with usage samples
 - [ ] add permissions or roles
@@ -63,4 +64,5 @@ Wait building image and dependency installation. Rails development server starts
 - [ ] analyze other storage formats for grid game instead of JSON bidimensional array: string, flatten array, bytea
 - [ ] better use of Turbo for small page changes
 - [ ] add 2FA authentication
+- [ ] add string localizations
 
