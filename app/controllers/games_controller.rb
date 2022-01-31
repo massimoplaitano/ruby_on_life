@@ -1,10 +1,15 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user!, except: %i[show download latest]
   before_action :set_game, only: %i[show edit update destroy download publish]
 
   # GET /games or /games.json
   def index
     @games = Game.by_user(current_user)
+  end
+
+  def latest
+    @games = Game.only_public.latest
+    render action: :index
   end
 
   # GET /games/1 or /games/1.json

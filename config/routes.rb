@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :games, param: :code do
     patch 'publish/:public', action: :publish, on: :member, as: :publish
+    get 'latest', action: :latest, on: :collection
   end
   get '/games/:code/:generation', to: 'games#show', constraints: { generation: /\d+/ }, as: :game_generation
   get '/games/:code/:generation/download', to: 'games#download', constraints: { generation: /\d+/ }, as: :download_game
