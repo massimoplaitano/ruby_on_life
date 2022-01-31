@@ -1,3 +1,5 @@
+# Game of Life Core
+# Grid object stores all information about a game: generation, height, width and all the cells.
 class Game
   class Grid
     MIN_SIZE = 3

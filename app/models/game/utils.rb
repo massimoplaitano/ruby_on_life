@@ -1,3 +1,4 @@
+# A collection of utilities to import and export Game and Grid objects
 class Game
   class Utils
     class << self

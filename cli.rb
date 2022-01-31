@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 
+# Importing Utils and Grid the cli command remain clean and small
 require_relative 'app/models/game/utils'
 require_relative 'app/models/game/grid'
 
 file_path = ARGV[0]
 unless file_path
-  $stderr.puts 'File path missing'
+  warn "File path missing!\n\nUsage: ./cli.rb file_path\n\n"
   exit(-1)
 end
 

@@ -48,4 +48,19 @@ bin/dev
 Create an account on https://gitpod.io and prefix `gitpod.io/#` on this repository url:
 https://gitpod.io/#https://github.com/massimoplaitano/ruby_on_life
 
-Wait building image and dependency installation. Rails development server starts automatically. 
+Wait building image and dependency installation. Rails development server starts automatically.
+
+
+# TODO
+
+- [ ] better error handling (especially new game grid file)
+- [ ] more method comments with usage samples
+- [ ] add permissions or roles
+- [ ] add user administration
+- [ ] add game search
+- [ ] new game from drawable grid (what JS framework?)
+- [ ] better test coverage
+- [ ] analyze other storage formats for grid game instead of JSON bidimensional array: string, flatten array, bytea
+- [ ] better use of Turbo for small page changes
+- [ ] add 2FA authentication
+
