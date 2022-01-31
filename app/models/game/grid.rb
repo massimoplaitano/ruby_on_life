@@ -18,6 +18,8 @@ class Game
       @height = height
       @width = width
 
+      # body is a bidimensional array of booleans
+      # TODO: analyze other data structures, for example string or linear array
       case body
       when Array
         body.size == height && body.all? { |row| row.size == width }

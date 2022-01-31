@@ -53,7 +53,7 @@ Wait building image and dependency installation. Rails development server starts
 
 # TODO
 
-- [ ] better error handling (especially new game grid file)
+- [ ] better error handling
 - [ ] more method comments with usage samples
 - [ ] add permissions or roles
 - [ ] add user administration

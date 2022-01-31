@@ -29,16 +29,26 @@ class GamesController < ApplicationController
   # POST /games or /games.json
   def create
     grid_file = params[:game][:grid_file]
-    # TODO: check grid_file errors
-    grid = Game::Utils.grid_from_file(grid_file.path)
-    @game = Game::Utils.game_from_grid(grid)
+
+    @game = Game.new
+    if grid_file&.path
+      begin
+        grid = Game::Utils.grid_from_file(grid_file.path)
+        @game = Game::Utils.game_from_grid(grid)
+      rescue ArgumentError => e
+        @game.errors.add(:grid_file, e.message)
+      end
+    else
+      @game.errors.add(:grid_file, 'missing')
+    end
+
     @game.user = current_user
     @game.public = params[:game][:public]
     @game.name = params[:game][:name]
     @game.description = params[:game][:description]
 
     respond_to do |format|
-      if @game.save
+      if @game.errors.blank? && @game.save
         format.html { redirect_to game_url(@game), notice: "Game was successfully created." }
         format.json { render :show, status: :created, location: @game }
       else
