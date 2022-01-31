@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_game, only: %i[show edit update destroy]
+  before_action :set_game, only: %i[show edit update destroy download publish]
 
   # GET /games or /games.json
   def index
@@ -9,9 +9,7 @@ class GamesController < ApplicationController
 
   # GET /games/1 or /games/1.json
   def show
-    @grid = @game.grid
-    generation = params[:generation].to_i
-    @grid = @grid.goto(generation) if generation > @grid.generation
+    set_grid_with_generation
   end
 
   # GET /games/new
@@ -30,6 +28,7 @@ class GamesController < ApplicationController
     grid = Game::Utils.grid_from_file(grid_file.path)
     @game = Game::Utils.game_from_grid(grid)
     @game.user = current_user
+    @game.public = params[:game][:public]
     @game.name = params[:game][:name]
     @game.description = params[:game][:description]
 
@@ -67,12 +66,29 @@ class GamesController < ApplicationController
     end
   end
 
+  def download
+    set_grid_with_generation
+    filename = "#{@game.code}-generation-#{@grid.generation}.txt"
+    send_data Game::Utils.grid_to_string(@grid), filename: filename
+  end
+
+  def publish
+    @game.update_attribute(:public, params[:public] == 'true')
+    redirect_to action: :show
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_game
     games = current_user ? Game.by_user(current_user) : Game.only_public
     @game = games.find_by!(code: params[:code])
+  end
+
+  def set_grid_with_generation
+    @grid = @game.grid
+    generation = params[:generation].to_i
+    @grid = @grid.goto(generation) if generation > @grid.generation
   end
 
   # Only allow a list of trusted parameters through.
