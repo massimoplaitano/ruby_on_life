@@ -1,1 +1,13 @@
-<%= render 'games', games: @games, title: 'My Games' %>
+<%- if @games.present? %>
+  <%= render 'games', games: @games, title: 'My Games' %>
+<% else %>
+  <div class="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4">
+    <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+      <div class="flex justify-center m-4">
+        <span class="text-xl">
+          No games yet, <%= link_to 'BEGIN NOW!', new_game_path, class: 'text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-bold rounded-lg px-5 py-2.5 text-center' %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>

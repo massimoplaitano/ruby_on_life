@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  MIN_SIZE = 3
+  MIN_SIZE = Grid::MIN_SIZE
   MAX_SIZE = 100
 
   belongs_to :user
